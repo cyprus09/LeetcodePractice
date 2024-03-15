@@ -1,12 +1,15 @@
 #include "linkedlist.h"
 
-class Solution {
+class Solution
+{
 public:
-    void reverseLinkedList(ListNode* node){
+    void reverseLinkedList(ListNode *node)
+    {
         ListNode *temp = node;
         ListNode *prev = NULL;
 
-        while(temp != NULL){
+        while (temp != NULL)
+        {
             ListNode *front = temp->next;
             temp->next = prev;
             prev = temp;
@@ -14,10 +17,12 @@ public:
         }
     }
 
-    ListNode* getKthNode(ListNode* node, int k){
+    ListNode *getKthNode(ListNode *node, int k)
+    {
         k -= 1;
 
-        while(node != NULL && k > 0){
+        while (node != NULL && k > 0)
+        {
             k--;
             node = node->next;
         }
@@ -25,31 +30,38 @@ public:
         return node;
     }
 
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode* temp = head;
-        ListNode* prevLast = NULL;
+    ListNode *reverseKGroup(ListNode *head, int k)
+    {
+        ListNode *temp = head;
+        ListNode *prevLast = NULL;
 
-        while(temp != NULL){
-            ListNode* kthNode = getKthNode(temp, k);
-            if(kthNode == NULL){
-                if(prevLast){
+        while (temp != NULL)
+        {
+            ListNode *kthNode = getKthNode(temp, k);
+            if (kthNode == NULL)
+            {
+                if (prevLast)
+                {
                     prevLast->next = temp;
-                } 
+                }
                 break;
             }
-            ListNode* nextNode = kthNode->next;
+            ListNode *nextNode = kthNode->next;
             kthNode->next = NULL;
 
             reverseLinkedList(temp);
 
-            if(temp == head){
+            if (temp == head)
+            {
                 head = kthNode;
-            }else{
+            }
+            else
+            {
                 prevLast->next = kthNode;
             }
 
             prevLast = temp;
-            temp = nextNode; 
+            temp = nextNode;
         }
 
         return head;
