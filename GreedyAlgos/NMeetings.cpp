@@ -14,7 +14,7 @@ bool comparator(struct Meeting m1, struct Meeting m2){
     if(m1.end > m2.end) return false;
     if(m1.pos < m2.pos) return true;
 }
-
+ //time complexity : O(n log n) for sorting
 int maximumMeetings(vector<int> &start, vector<int> &end){
 
     struct Meeting meet[end.size()];
