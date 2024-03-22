@@ -3,42 +3,38 @@
 
 using namespace std;
 
-struct meeting{
+struct Meeting{
     int start;
     int end;
     int pos;
 };
 
-bool comparator(struct meeting m1, meeting m2){
+bool comparator(struct Meeting m1, struct Meeting m2){
     if(m1.end < m2.end) return true;
-    else if(m1.end > m2.end) return false;
-    else if(m1.pos < m2.pos) return true;
-
-    return false;
+    if(m1.end > m2.end) return false;
+    if(m1.pos < m2.pos) return true;
 }
 
-int maximumMeetings(vector<int> &start, vector<int> &end)
-{   
-    int n = start.size();
-    struct meeting meet[n];
+int maximumMeetings(vector<int> &start, vector<int> &end){
 
-    for(int i = 0; i < n; i++){
-        meet[i].start = start[i], meet[i].end = end[i], meet[i].pos = i + 1;
+    struct Meeting meet[end.size()];
+    for(int i = 0; i < end.size(); i++){
+        meet[i].start = start[i];
+        meet[i].end = end[i];
+        meet[i].pos = i + 1;
     }
 
-    sort(meet, meet + n, comparator);
-
-    vector<int> answer;
+    sort(meet, meet + end.size(), comparator);
 
     int limit = meet[0].end;
-    answer.push_back(meet[0].pos);
-
-    for(int i = 1; i < n; i++){
-        if(meet[i].start > limit){
+    int count = 1;
+    
+    for(int i = 1; i < end.size(); i++){
+        if(limit < meet[i].start){
             limit = meet[i].end;
-            answer.push_back(meet[i].pos);
+            count++;
         }
     }
 
-    return answer.size();
+    return count;
 }
