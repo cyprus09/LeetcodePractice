@@ -2,17 +2,21 @@
 
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    void combinationSum2Helper(vector<int>& candidates,
-                               vector<vector<int>>& ans, vector<int>& subset,
-                               int index, int target) {
-        if (target == 0) {
+    void combinationSum2Helper(vector<int> &candidates,
+                               vector<vector<int>> &ans, vector<int> &subset,
+                               int index, int target)
+    {
+        if (target == 0)
+        {
             ans.push_back(subset);
             return;
         }
 
-        for (int i = index; i < candidates.size(); i++) {
+        for (int i = index; i < candidates.size(); i++)
+        {
             if (i > index && candidates[i] == candidates[i - 1])
                 continue;
             if (candidates[i] > target)
@@ -23,7 +27,8 @@ public:
             subset.pop_back();
         }
     }
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    vector<vector<int>> combinationSum2(vector<int> &candidates, int target)
+    {
         sort(candidates.begin(), candidates.end());
         vector<vector<int>> ans;
         vector<int> subset;
