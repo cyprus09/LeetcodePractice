@@ -3,19 +3,19 @@
 using namespace std;
 
 class Solution {
-private:
-    void setColumnsZero(vector<vector<int>> &matrix, int col){
+public:
+    void setColumnZeroes(vector<vector<int>>& matrix, int col){
         for(int i = 0; i < matrix.size(); i++){
             matrix[i][col] = 0;
         }
     }
 
-    void setRowsZero(vector<vector<int>> &matrix, int row){
+    void setRowZeroes(vector<vector<int>>& matrix, int row){
         for(int i = 0; i < matrix[0].size(); i++){
             matrix[row][i] = 0;
         }
     }
-public:
+
     void setZeroes(vector<vector<int>>& matrix) {
         int m = matrix.size();
         if(m == 0) return;
@@ -32,9 +32,10 @@ public:
             }
         }
 
-        for(const auto& zero : zeroes){
-            setColumnsZero(matrix, zero.second);
-            setRowsZero(matrix, zero.first);
+        //const auto& makes sure we change matrix values and not its copies
+        for(const auto& it : zeroes){
+            setRowZeroes(matrix, it.first);
+            setColumnZeroes(matrix, it.second);
         }
     }
 };
