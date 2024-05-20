@@ -51,3 +51,26 @@ public:
     }
 };
 
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int left = 0, right = height.size() - 1;
+        int waterArea = 0, leftMax = height[left], rightMax = height[right];
+
+        while (left < right){
+            if (leftMax < rightMax){
+                left++;
+                leftMax = max(leftMax, height[left]);
+                waterArea += leftMax - height[left];
+            }else{
+                right--;
+                rightMax = max(rightMax, height[right]);
+                waterArea += rightMax - height[right];
+            }
+        }
+
+        return waterArea;
+    }
+};
