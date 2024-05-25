@@ -11,10 +11,10 @@ public:
         if (t.size() > s.size())
             return "";
 
-        unordered_map<char, int> window;
+        unordered_map<char, int> letters;
         for (int i = 0; i < t.size(); i++)
         {
-            window[t[i]]++;
+            letters[t[i]]++;
         }
 
         int i = 0, j = 0;
@@ -25,12 +25,9 @@ public:
 
         while (j < s.size())
         {
-            if (window[s[j]] > 0)
-            {
+            if (letters[s[j]] > 0)
                 counter--;
-            }
-
-            window[s[j]]--;
+            letters[s[j]]--;
             j++;
 
             while (counter == 0)
@@ -40,10 +37,8 @@ public:
                     minStart = i;
                     minLength = j - i;
                 }
-
-                window[s[i]]++;
-
-                if (window[s[i]] > 0)
+                letters[s[i]]++;
+                if (letters[s[i]] > 0)
                 {
                     counter++;
                 }
@@ -52,9 +47,8 @@ public:
         }
 
         if (minLength != INT_MAX)
-        {
             return s.substr(minStart, minLength);
-        }
+
         return "";
     }
 };
