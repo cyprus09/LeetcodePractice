@@ -5,33 +5,37 @@ class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode* dummy = new ListNode();
-        ListNode* temp = dummy;
+
+        ListNode* curr = dummy;
         int carry = 0;
 
-        while(l1 != NULL || l2 != NULL || carry){
-            int sum = 0;
+        while(l1 || l2){
+            int val1 = (l1 != NULL) ? l1->val : 0;
+            int val2 = (l2 != NULL) ? l2->val : 0;
+
+            int sum = val1 + val2 + carry;
+            carry = sum / 10;
+
+            curr->next = new ListNode(sum % 10);
+            curr = curr->next;
+
             if(l1 != NULL){
-                sum += l1->val;
                 l1 = l1->next;
             }
-
             if(l2 != NULL){
-                sum += l2->val;
                 l2 = l2->next;
             }
+        }
 
-            sum += carry;
-            carry = sum/10;
-            ListNode *node = new ListNode(sum % 10);
-            temp->next = node;
-            temp = temp->next;
+        if(carry == 1){
+            curr->next = new ListNode(1);
         }
 
         return dummy->next;
     }
 };
 
-//do not do this approach can discuss initially, not covering edge cases where either is null or only has 0, a very long approach not viable to write out completely
+// do not do this approach can discuss initially, not covering edge cases where either is null or only has 0, a very long approach not viable to write out completely
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {

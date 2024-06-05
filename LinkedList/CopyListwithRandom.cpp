@@ -18,6 +18,35 @@ public:
     }
 };
 
+/* altough the following approach is correct, sometimes the next and random 
+pointers might point to null values, which we should not be accessing, hence checking
+if the value is null before is a better approach
+*/
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        unordered_map<Node*, Node*> copyNodes;
+
+        Node* oldNode = head;
+        while(oldNode){
+            Node* newNode = new Node(oldNode->val);
+            copyNodes[oldNode] = newNode;
+            oldNode = oldNode->next;
+        }
+
+        oldNode = head;
+        while(oldNode){
+            Node* copyNode = copyNodes[oldNode];
+            copyNode->next = copyNodes[oldNode->next];
+            copyNode->random = copyNodes[oldNode->random];
+            oldNode = oldNode->next;
+        }
+
+        return copyNodes[head];
+    }
+};
+
+//checking for null values before assigning
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
