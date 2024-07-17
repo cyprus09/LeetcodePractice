@@ -7,7 +7,7 @@ using namespace std;
 class Solution
 {
 private:
-  bool dfs(int course, unordered_map<int, vector<int>> m,
+  bool dfs(int course, unordered_map<int, vector<int>> &m,
            unordered_set<int> &visited)
   {
     if (visited.find(course) != visited.end())
