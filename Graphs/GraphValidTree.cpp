@@ -5,7 +5,7 @@ using namespace std;
 class Solution
 {
 private:
-  bool hasCycle(vector<vector<int>> &adj, vector<bool> &visited, int parent, int child)
+  bool hasCycle(vector< vector<int> > &adj, vector<bool> &visited, int parent, int child)
   {
     if (visited[child])
       return true;
