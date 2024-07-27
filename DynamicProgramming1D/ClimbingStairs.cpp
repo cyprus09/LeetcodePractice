@@ -13,18 +13,18 @@ public:
     if (n == 2)
       return 2;
 
-    int first = 1;
-    int second = 2;
-    int result = 0;
+    int prev2 = 1;
+    int prev1 = 1;
+    int curr = 0;
 
-    for (int i = 2; i < n; i++)
+    for (int i = 2; i <= n; i++)
     {
-      result = first + second;
-      first = second;
-      second = result;
+      curr = prev1 + prev2;
+      prev2 = prev1;
+      prev1 = curr;
     }
 
-    return result;
+    return curr;
   }
 };
 
