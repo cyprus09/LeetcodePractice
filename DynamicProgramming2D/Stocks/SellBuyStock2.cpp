@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// memoisation approach
+// memoisation approach (top-down approach)
 class Solution
 {
 private:
@@ -44,7 +44,7 @@ public:
   }
 };
 
-// tabulation approach
+// tabulation approach (bottom-up approach)
 class Solution
 {
 public:
@@ -70,7 +70,7 @@ public:
   }
 };
 
-// space optimisation approach
+// space optimisation approach (same as dp)
 class Solution
 {
 public:

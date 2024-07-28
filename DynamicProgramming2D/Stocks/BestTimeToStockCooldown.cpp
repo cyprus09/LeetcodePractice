@@ -78,6 +78,7 @@ public:
   int maxProfit(vector<int> &prices)
   {
     int n = prices.size();
+    
     vector<int> curr(2, 0);
     vector<int> front1(2, 0);
     vector<int> front2(2, 0);
