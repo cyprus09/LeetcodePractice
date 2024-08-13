@@ -31,20 +31,16 @@ public:
 };
 
 int main() {
-    // Example input
     vector<vector<string> > tickets;
     tickets.push_back({"MUC", "LHR"});
     tickets.push_back({"JFK", "MUC"});
     tickets.push_back({"SFO", "SJC"});
     tickets.push_back({"LHR", "SFO"});
 
-    // Create an instance of Solution
     Solution solution;
     
-    // Find the itinerary
     vector<string> itinerary = solution.findItinerary(tickets);
 
-    // Print the result
     for (const string& airport : itinerary) {
         cout << airport << " ";
     }
