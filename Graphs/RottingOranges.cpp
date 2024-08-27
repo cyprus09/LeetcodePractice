@@ -73,3 +73,50 @@ public:
     return -1; // Some fresh oranges could not be rotted
   }
 };
+
+// dfs approach with all directions recursive
+class Solution
+{
+private:
+  int m, n;
+  void dfs(vector<vector<int>> &grid, int i, int j, int time)
+  {
+    if (i >= m || i < 0 || j >= n || j < 0 || grid[i][j] == 0 ||
+        (grid[i][j] < time && grid[i][j] > 1))
+      return;
+
+    grid[i][j] = time;
+    dfs(grid, i - 1, j, time + 1);
+    dfs(grid, i + 1, j, time + 1);
+    dfs(grid, i, j - 1, time + 1);
+    dfs(grid, i, j + 1, time + 1);
+  }
+
+public:
+  int orangesRotting(vector<vector<int>> &grid)
+  {
+    m = grid.size();
+    n = grid[0].size();
+    int ans = 2;
+
+    for (int i = 0; i < m; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        if (grid[i][j] == 2)
+          dfs(grid, i, j, 2);
+      }
+    }
+
+    for (int i = 0; i < m; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        if (grid[i][j] == 1)
+          return -1;
+        ans = max(ans, grid[i][j]);
+      }
+    }
+    return ans - 2;
+  }
+};
