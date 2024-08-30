@@ -31,34 +31,39 @@ public:
 };
 
 // optimal approach
+// sort before putting in the set so no duplicates are entered for sure
 class Solution
 {
-public:
-    void subsetHelper(vector<int> &nums, vector<int> subset, set<vector<int>> &res, int index)
+private:
+    void subsetHelper(vector<int> &nums, set<vector<int>> &result, vector<int> &subset, int i)
     {
-        if (index == nums.size())
+        if (i == nums.size())
         {
             sort(subset.begin(), subset.end());
-            res.insert(subset);
+            result.insert(subset);
             return;
         }
 
-        subset.push_back(nums[index]);
-        subsetHelper(nums, subset, res, index + 1);
+        subset.push_back(nums[i]);
+        subsetHelper(nums, result, subset, i + 1);
+
         subset.pop_back();
-        subsetHelper(nums, subset, res, index + 1);
+        subsetHelper(nums, result, subset, i + 1);
     }
+
+public:
     vector<vector<int>> subsetsWithDup(vector<int> &nums)
     {
-        vector<vector<int>> ans;
-        set<vector<int>> res;
+        vector<vector<int>> result;
+        set<vector<int>> ans;
         vector<int> subset;
-        subsetHelper(nums, subset, res, 0);
-        for (auto it = res.begin(); it != res.end(); it++)
-        {
-            ans.push_back(*it);
-        }
 
-        return ans;
+        subsetHelper(nums, ans, subset, 0);
+        // it is a pointer to the value, hence have to dereference it to access to push_back()
+        for (auto it = ans.begin(); it != ans.end(); it++)
+        {
+            result.push_back(*it);
+        }
+        return result;
     }
 };
