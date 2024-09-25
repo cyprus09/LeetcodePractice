@@ -32,25 +32,43 @@ public:
 class Solution
 {
 private:
-  int climbStairsHelper(vector<int> &memo, int n)
+  int climbStairsHelper(int n, vector<int> &memo)
   {
-    if (n == 1)
+    if (n <= 1)
       return 1;
-    if (n == 2)
-      return 2;
-
     if (memo[n] != -1)
       return memo[n];
+    memo[n] = climbStairsHelper(n - 1, memo) + climbStairsHelper(n - 2, memo);
 
-    memo[n] =
-        climbStairsHelper(memo, n - 1) + climbStairsHelper(memo, n - 2);
     return memo[n];
   }
 
 public:
   int climbStairs(int n)
   {
-    vector<int> memo(n + 1, -1);
-    return climbStairsHelper(memo, n);
+    vector<int> stairs(n + 1, -1);
+    return climbStairsHelper(n, stairs);
+  }
+};
+
+// tabulation approach
+class Solution
+{
+public:
+  int climbStairs(int n)
+  {
+    if (n <= 1)
+      return 1;
+
+    vector<int> stairs(n + 1, -1);
+    stairs[0] = 1;
+    stairs[1] = 1;
+
+    for (int i = 2; i <= n; i++)
+    {
+      stairs[i] = stairs[i - 1] + stairs[i - 2];
+    }
+
+    return stairs[n];
   }
 };

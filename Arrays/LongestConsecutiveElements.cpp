@@ -3,30 +3,36 @@
 
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    int longestConsecutive(vector<int>& nums) {
-        if(nums.empty()){
+    int longestConsecutive(vector<int> &nums)
+    {
+        if (nums.empty())
             return 0;
-        }
-
         sort(nums.begin(), nums.end());
 
-        int longestStreak = 1;
-        int currentStreak = 1;
+        int currentStreak = 1, longestStreak = 1;
 
-        for(int i = 1; i < nums.size(); i++){
-            if(nums[i] != nums[i - 1]){
-                if(nums[i] == nums[i - 1] + 1){
-                    currentStreak++;
-                }
-                if(nums[i] != nums[i - 1] + 1){
-                    longestStreak = max(longestStreak, currentStreak);
-                    currentStreak = 1;
-                }
+        for (int i = 0; i < nums.size() - 1; i++)
+        {
+
+            if (nums[i] == nums[i + 1])
+            {
+                continue;
+            }
+
+            if (nums[i] + 1 == nums[i + 1])
+            {
+                currentStreak++;
+            }
+            if (nums[i] + 1 != nums[i + 1])
+            {
+                longestStreak = max(currentStreak, longestStreak);
+                currentStreak = 1;
             }
         }
 
-        return max(longestStreak, currentStreak);
+        return max(currentStreak, longestStreak);
     }
 };
