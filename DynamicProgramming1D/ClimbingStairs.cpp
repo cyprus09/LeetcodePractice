@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// dp approach
+// tabulation approach
 class Solution
 {
 public:
@@ -58,12 +58,11 @@ public:
   int climbStairs(int n)
   {
     if (n <= 1)
-      return 1;
+      return 1; // early return to reduce computations
 
     vector<int> stairs(n + 1, -1);
-    stairs[0] = 1;
-    stairs[1] = 1;
-
+    stairs[0] = 1; // 0 methods to climb the stairs
+    stairs[1] = 1; // 1 method = 1 step
     for (int i = 2; i <= n; i++)
     {
       stairs[i] = stairs[i - 1] + stairs[i - 2];
