@@ -38,7 +38,12 @@ public:
 
     for (int i = 2; i < n; i++)
     {
-      dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);
+      // two options: either to rob the house or not, if yes, 
+      // dp[i] will be dp[i] two indices back plus current
+      int option1 = dp[i - 1];
+      int option2 = dp[i - 2] + nums[i];
+
+      dp[i] = max(option1, option2);
     }
 
     return dp[n - 1];

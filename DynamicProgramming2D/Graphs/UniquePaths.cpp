@@ -19,6 +19,30 @@ public:
   }
 };
 
+// best intuitive approach
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        // add padding to handle boundary edge conditions easily and neatly
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        // initialise first cell as 1
+        dp[1][1] = 1;
+
+        // can start from 1 since 0 is padded and added externally
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // base case
+                if (i == 1 && j == 1)
+                    continue;
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+
+        return dp[m][n];
+    }
+};
+
+
 class Solution
 {
 public:
