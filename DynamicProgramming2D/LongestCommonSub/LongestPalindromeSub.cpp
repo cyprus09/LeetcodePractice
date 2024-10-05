@@ -4,31 +4,38 @@ using namespace std;
 
 class Solution
 {
-private:
-  int lcs(string s1, string s2)
+  // take dp array limits one place bigger than constraints
+  int dp[1000][1000];
+  string str;
+
+  int solve(int l, int r)
   {
-    int m = s1.size(), n = s2.size();
+    // l is just after r, denotes empty string
+    // we take l == r + 1 since both are inclusive
+    if (l == r + 1)
+      return 0;
+    // exactly the same substr
+    if (l == r)
+      return 1;
 
-    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    if (dp[l][r] > 0)
+      return dp[l][r];
 
-    for (int i = 1; i <= m; i++)
-    {
-      for (int j = 1; j <= n; j++)
-      {
-        if (s1[i - 1] == s2[j - 1])
-          dp[i][j] = 1 + dp[i - 1][j - 1];
-        else
-          dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-      }
-    }
-    return dp[m][n];
+    if (str[l] == str[r])
+      // take both ends and add 2 to the length to cache it in the dp
+      // array
+      dp[l][r] = solve(l + 1, r - 1) + 2;
+    else
+      // exclude from left or right and take it's max
+      dp[l][r] = max(solve(l + 1, r), solve(l, r - 1));
+
+    return dp[l][r];
   }
 
 public:
   int longestPalindromeSubseq(string s)
   {
-    string t = s;
-    reverse(s.begin(), s.end());
-    return lcs(t, s);
+    str = s;
+    return solve(0, s.size() - 1);
   }
 };
