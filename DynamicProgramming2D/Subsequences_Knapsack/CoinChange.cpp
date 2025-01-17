@@ -68,8 +68,12 @@ public:
   int coinChange(vector<int> &coins, int amount)
   {
     int n = coins.size();
-    vector<vector<int>> dp(n, vector<int>(amount + 1, -1));
+    // first value represents the coin denomination while second value
+    // denominates the required sum
+    vector<vector<int>> dp(n + 1, vector<int>(amount + 1, -1));
 
+    // initialise the first row with values that would make up the amount
+    // with the first coin or coin at zero index
     for (int i = 0; i <= amount; i++)
     {
       if (i % coins[0] != 0)
@@ -82,16 +86,23 @@ public:
     {
       for (int j = 0; j <= amount; j++)
       {
+        // you dont take the coin to add to the sum
         int notTaken = dp[i - 1][j];
-
+        // we initialise taken to 1e9 to make sure if it doesnt go
+        // through the min will be taken as notTaken
         int taken = 1e9;
+        // you take the coin to add the sum given it's less than the
+        // required sum
         if (coins[i] <= j)
           taken = 1 + dp[i][j - coins[i]];
 
+        // take the maximum value within the two
         dp[i][j] = min(taken, notTaken);
       }
     }
 
+    // return the dp[n - 1] coin based on whether you reached the value or
+    // not
     return dp[n - 1][amount] == 1e9 ? -1 : dp[n - 1][amount];
   }
 };
